@@ -2,7 +2,7 @@ package handler;
 
 import org.junit.Before;
 import org.junit.Test;
-import source.MemorySourcePages;
+import source.MemorySourcePagesImlementation;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,7 +12,7 @@ import static org.junit.Assert.*;
 public class StatePagesHandlerTest {
 
     private StatePagesHandler statePagesHandler;
-    private MemorySourcePages sourcePages;
+    private MemorySourcePagesImlementation sourcePages;
 
     @Before
     public void setUp() {
@@ -29,7 +29,7 @@ public class StatePagesHandlerTest {
         todayPagesMap.put("/d", "d page");
         todayPagesMap.put("/e", "e page");
 
-        sourcePages = new MemorySourcePages(todayPagesMap, yesterdayPagesMap);
+        sourcePages = new MemorySourcePagesImlementation(todayPagesMap, yesterdayPagesMap);
         statePagesHandler = new StatePagesHandler(sourcePages);
     }
 

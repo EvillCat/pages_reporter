@@ -1,19 +1,23 @@
 package handler;
 
-import source.MemorySourcePages;
+import source.MemorySourcePagesImlementation;
 
 import java.util.LinkedList;
 import java.util.List;
 
+
+//TODO Переписать с помощью streamApi
 public class StatePagesHandler {
 
-    private MemorySourcePages sourcePages;
+    private MemorySourcePagesImlementation sourcePages;
 
-    public StatePagesHandler(MemorySourcePages sourcePages) {
+    public StatePagesHandler(MemorySourcePagesImlementation sourcePages) {
         this.sourcePages = sourcePages;
     }
 
-    //Возвращает null, если нет удалённых страниц
+    /**
+     * @return null if no deleted pages
+     */
     public List<String> getDeletedUrls() {
         List<String> yesterdayUrls = new LinkedList<>(sourcePages.getYesterdayUrlsSet());
         List<String> deletedUrls = new LinkedList<>();
@@ -26,7 +30,9 @@ public class StatePagesHandler {
         return deletedUrls;
     }
 
-    //Возвращает null, если нет созданных страниц*/
+    /**
+     * @return null if no created pages
+     */
     public List<String> getCreatedUrls() {
         List<String> todayUrls = new LinkedList<>(sourcePages.getTodayUrlsSet());
         List<String> createdUrls = new LinkedList<>();
@@ -39,16 +45,17 @@ public class StatePagesHandler {
         return createdUrls;
     }
 
-    //Возвращает null, если нет обновленных страниц*/
+    /**
+     * @return null if no updated pages
+     */
     public List<String> getUpdatedUrls() {
         List<String> todayUrls = new LinkedList<>(sourcePages.getTodayUrlsSet());
         List<String> updatedUrls = new LinkedList<>();
 
         for (String todayUrl : todayUrls) {
-            if (sourcePages.isYesterdayUrlsContains(todayUrl)) {
-                if (!(sourcePages.getYesterdayHtmlCode(todayUrl)).equals(sourcePages.getTodayHtmlCode(todayUrl))) {
-                    updatedUrls.add(todayUrl);
-                }
+            if (sourcePages.isYesterdayUrlsContains(todayUrl) &&
+                    !(sourcePages.getYesterdayHtmlCode(todayUrl)).equals(sourcePages.getTodayHtmlCode(todayUrl))) {
+                updatedUrls.add(todayUrl);
             }
         }
         return updatedUrls;
